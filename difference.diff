@@ -1,0 +1,34 @@
+1812,1816c1812,1822
+< 		DAMAGE_MOVE = Mathf.MoveTowards(DAMAGE_MOVE, 1, 4 * Time.deltaTime)
+< 		DAMAGE_TIMER = DAMAGE_TIMER - Time.deltaTime
+< 	else
+< 		DAMAGE_MOVE = Mathf.MoveTowards(DAMAGE_MOVE, 0, 1 * Time.deltaTime)
+< 	end
+---
+>         DAMAGE_MOVE = Mathf.MoveTowards(DAMAGE_MOVE, 1, 4 * Time.deltaTime)
+>         DAMAGE_TIMER = DAMAGE_TIMER - Time.deltaTime
+> 		BFPrint("DAMAGE TIMER " .. DAMAGE_TIMER)
+>     else
+>         DAMAGE_MOVE = Mathf.MoveTowards(DAMAGE_MOVE, 0, 1 * Time.deltaTime)
+>         -- Add this line to hide the damage indicator when timer expires
+>         if self.damageIndicatorImage.gameObject.activeSelf then
+>             self.damageIndicatorImage.gameObject.SetActive(false)
+>         end
+>     end
+> 
+1877,1878c1883,1894
+< 	TIME_SINCE_LAST_HIT = TIME_SINCE_LAST_HIT + Time.deltaTime
+< 	TIME_SINCE_LAST_KILL = TIME_SINCE_LAST_KILL + Time.deltaTime
+---
+> 	if TIME_SINCE_LAST_HIT > 0.5 then  -- 0.5 seconds should be enough for the hitmarker to be visible
+>         if self.targets.hitmarkerNormal.gameObject.activeSelf then
+>             self.targets.hitmarkerNormal.SetActive(false)
+>         end
+>         if self.targets.hitmarkerVehicle.gameObject.activeSelf then
+>             self.targets.hitmarkerVehicle.SetActive(false)
+>         end
+>     end
+>     
+>     TIME_SINCE_LAST_HIT = TIME_SINCE_LAST_HIT + Time.deltaTime
+>     TIME_SINCE_LAST_KILL = TIME_SINCE_LAST_KILL + Time.deltaTime
+> 
